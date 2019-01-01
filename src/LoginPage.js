@@ -12,6 +12,8 @@ class LoginPage extends Component {
       confirmNewPassword: '',
       newPasswordRequired: false,
       error: '',
+      isResettingPassword: false,
+      verificationCode: '',
     }
   }
 
@@ -42,31 +44,70 @@ class LoginPage extends Component {
     // and the context of cognitoUser.authenticateUser is needed for the onFailure callback
     let localContext = this;
 
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (result) {
-          const returnLocation = localContext.props.location.state ? localContext.props.location.state.referrer : '/success'; 
-          localContext.props.history.push(returnLocation || "/success");
-      },
+    if(this.state.isResettingPassword) {      
+      cognitoUser.confirmPassword(this.state.verificationCode, this.state.password, {
+        
+        onSuccess: function (result) {
+          cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: function (result) {
+                const returnLocation = localContext.props.location.state ? localContext.props.location.state.referrer : '/success'; 
+                localContext.props.history.push(returnLocation || "/success");
+            },
+      
+            onFailure: function(err) {
+                localContext.setState({error: err.message});
+            },
+      
+            newPasswordRequired: function(userAttributes, requiredAttributes) {
+              // User was signed up by an admin and must provide new
+              // password and required attributes, if any, to complete
+              // authentication.
+      
+              // the api doesn't accept this field back
+              delete userAttributes.email_verified;
+              delete userAttributes.phone_number_verified;
+      
+              // Get these details and call
+              localContext.setState({newPasswordRequired: true});
+              if(localContext.state.newPassword && localContext.state.confirmNewPassword) {
+                cognitoUser.completeNewPasswordChallenge(localContext.state.newPassword, userAttributes, this);
+              }
+            }
+          });
+        },
 
-      onFailure: function(err) {
-          localContext.setState({error: err.message});
-      },
-
-      newPasswordRequired: function(userAttributes, requiredAttributes) {
-        // User was signed up by an admin and must provide new
-        // password and required attributes, if any, to complete
-        // authentication.
-
-        // the api doesn't accept this field back
-        delete userAttributes.email_verified;
-
-        // Get these details and call
-        localContext.setState({newPasswordRequired: true});
-        if(localContext.state.newPassword && localContext.state.confirmNewPassword) {
-          cognitoUser.completeNewPasswordChallenge(localContext.state.newPassword, userAttributes, this);
+        onFailure: function(err) {
+            localContext.setState({error: err.message});
+        },
+      });
+    } else {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+            const returnLocation = localContext.props.location.state ? localContext.props.location.state.referrer : '/success'; 
+            localContext.props.history.push(returnLocation || "/success");
+        },
+  
+        onFailure: function(err) {
+            localContext.setState({error: err.message});
+        },
+  
+        newPasswordRequired: function(userAttributes, requiredAttributes) {
+          // User was signed up by an admin and must provide new
+          // password and required attributes, if any, to complete
+          // authentication.
+  
+          // the api doesn't accept this field back
+          delete userAttributes.email_verified;
+          delete userAttributes.phone_number_verified;
+  
+          // Get these details and call
+          localContext.setState({newPasswordRequired: true});
+          if(localContext.state.newPassword && localContext.state.confirmNewPassword) {
+            cognitoUser.completeNewPasswordChallenge(localContext.state.newPassword, userAttributes, this);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   handleChange(event) {
@@ -126,6 +167,47 @@ class LoginPage extends Component {
     }
   }
 
+  showVerificationField() {
+    if(this.state.isResettingPassword) {
+      return <div className="form-group">
+        <label htmlFor="verificationCode">Verification Code</label>
+        <input name="verificationCode" onChange={this.handleChange.bind(this)} type="password" className="form-control" placeholder="Your verification code"/>
+      </div>
+    }
+  }
+
+  forgotPassword(e) {
+    e.preventDefault();
+
+    var poolData = {
+      UserPoolId : process.env.REACT_APP_POOL_ID, // your user pool id here
+      ClientId : process.env.REACT_APP_CLIENT_ID // your app client id here
+    };
+
+    var userPool = new cognito.CognitoUserPool(poolData);
+    var userData = {
+        Username : this.state.username, // your username here
+        Pool : userPool
+    };
+
+    var cognitoUser = new cognito.CognitoUser(userData);
+    let localContext = this;
+
+    cognitoUser.forgotPassword({
+      onSuccess: function (result) {
+        localContext.setState({error: "You have successfully reset you password, please log in"});
+      },
+
+      onFailure: function(err) {
+        localContext.setState({error: err.message});
+      },
+
+      inputVerificationCode() {
+        localContext.setState({isResettingPassword: true});
+      }
+  });
+  }
+
   render() {
     return (
       <div className="App">
@@ -137,6 +219,8 @@ class LoginPage extends Component {
               <input name="username" onChange={this.handleChange.bind(this)} className="form-control" placeholder="Your username"/>
             </div>
 
+            { this.showVerificationField() }
+
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input name="password" onChange={this.handleChange.bind(this)} type="password" className="form-control" placeholder="Your password"/>
@@ -147,6 +231,7 @@ class LoginPage extends Component {
             { this.showError() }
 
             <button type="submit" disabled={!this.hasRequiredFields()} className="btn btn-primary mt-3 w-100">Sign In</button>
+            <button onClick={this.forgotPassword.bind(this)}>Forgot Password?</button>
           </form>
         </header>
       </div>
