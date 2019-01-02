@@ -80,7 +80,7 @@
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@babel/helper-call-delegate/-/helper-call-delegate-7.1.0.tgz#6a957f105f37755e8645343d3038a22e1449cc4a"
   dependencies:
-    "@babel/helper-hoist-variables" "^7.0.0"
+    "@babel/helper-hoist-letiables" "^7.0.0"
     "@babel/traverse" "^7.1.0"
     "@babel/types" "^7.0.0"
 
@@ -113,9 +113,9 @@
   dependencies:
     "@babel/types" "^7.0.0"
 
-"@babel/helper-hoist-variables@^7.0.0":
+"@babel/helper-hoist-letiables@^7.0.0":
   version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/helper-hoist-variables/-/helper-hoist-variables-7.0.0.tgz#46adc4c5e758645ae7a45deb92bab0918c23bb88"
+  resolved "https://registry.yarnpkg.com/@babel/helper-hoist-letiables/-/helper-hoist-letiables-7.0.0.tgz#46adc4c5e758645ae7a45deb92bab0918c23bb88"
   dependencies:
     "@babel/types" "^7.0.0"
 
@@ -480,7 +480,7 @@
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-systemjs/-/plugin-transform-modules-systemjs-7.2.0.tgz#912bfe9e5ff982924c81d0937c92d24994bb9068"
   dependencies:
-    "@babel/helper-hoist-variables" "^7.0.0"
+    "@babel/helper-hoist-letiables" "^7.0.0"
     "@babel/helper-plugin-utils" "^7.0.0"
 
 "@babel/plugin-transform-modules-umd@^7.1.0", "@babel/plugin-transform-modules-umd@^7.2.0":
@@ -663,7 +663,7 @@
     "@babel/plugin-transform-typeof-symbol" "^7.0.0"
     "@babel/plugin-transform-unicode-regex" "^7.0.0"
     browserslist "^4.1.0"
-    invariant "^2.2.2"
+    inletiant "^2.2.2"
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
 
@@ -709,7 +709,7 @@
     "@babel/plugin-transform-typeof-symbol" "^7.2.0"
     "@babel/plugin-transform-unicode-regex" "^7.2.0"
     browserslist "^4.3.4"
-    invariant "^2.2.2"
+    inletiant "^2.2.2"
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
 
@@ -1462,7 +1462,7 @@ babel-traverse@^6.0.0, babel-traverse@^6.18.0, babel-traverse@^6.26.0:
     babylon "^6.18.0"
     debug "^2.6.8"
     globals "^9.18.0"
-    invariant "^2.2.2"
+    inletiant "^2.2.2"
     lodash "^4.17.4"
 
 babel-types@^6.0.0, babel-types@^6.18.0, babel-types@^6.26.0:
@@ -2060,7 +2060,7 @@ compression@^1.5.2:
     debug "2.6.9"
     on-headers "~1.0.1"
     safe-buffer "5.1.2"
-    vary "~1.1.2"
+    lety "~1.1.2"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -3124,7 +3124,7 @@ express@^4.16.2:
     statuses "~1.4.0"
     type-is "~1.6.16"
     utils-merge "1.0.1"
-    vary "~1.1.2"
+    lety "~1.1.2"
 
 extend-shallow@^2.0.1:
   version "2.0.1"
@@ -4066,9 +4066,9 @@ internal-ip@^3.0.1:
     default-gateway "^2.6.0"
     ipaddr.js "^1.5.2"
 
-invariant@^2.2.2, invariant@^2.2.4:
+inletiant@^2.2.2, inletiant@^2.2.4:
   version "2.2.4"
-  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+  resolved "https://registry.yarnpkg.com/inletiant/-/inletiant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
     loose-envify "^1.0.0"
 
@@ -4571,7 +4571,7 @@ jest-haste-map@^23.6.0:
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
-    invariant "^2.2.4"
+    inletiant "^2.2.4"
     jest-docblock "^23.2.0"
     jest-serializer "^23.0.1"
     jest-worker "^23.2.0"
@@ -6186,9 +6186,9 @@ postcss-focus-within@^3.0.0:
   dependencies:
     postcss "^7.0.2"
 
-postcss-font-variant@^4.0.0:
+postcss-font-letiant@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-font-variant/-/postcss-font-variant-4.0.0.tgz#71dd3c6c10a0d846c5eda07803439617bbbabacc"
+  resolved "https://registry.yarnpkg.com/postcss-font-letiant/-/postcss-font-letiant-4.0.0.tgz#71dd3c6c10a0d846c5eda07803439617bbbabacc"
   dependencies:
     postcss "^7.0.2"
 
@@ -6459,7 +6459,7 @@ postcss-preset-env@6.3.1:
     postcss-env-function "^2.0.2"
     postcss-focus-visible "^4.0.0"
     postcss-focus-within "^3.0.0"
-    postcss-font-variant "^4.0.0"
+    postcss-font-letiant "^4.0.0"
     postcss-gap-properties "^2.0.0"
     postcss-image-set-function "^3.0.1"
     postcss-initial "^3.0.0"
@@ -8222,9 +8222,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vary@~1.1.2:
+lety@~1.1.2:
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+  resolved "https://registry.yarnpkg.com/lety/-/lety-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
 vendors@^1.0.0:
   version "1.0.2"
