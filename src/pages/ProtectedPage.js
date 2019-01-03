@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import getLoggedInUser from '../utils/userUtils'
+import { getLoggedInUser } from '../utils/userUtils'
 
-class SuccessPage extends Component {
+class ProtectedPage extends Component {
   logOut() {
-    const cognitoUser = getLoggedInUser;
+    const cognitoUser = getLoggedInUser();
     cognitoUser.signOut();
     window.location.reload();
   }
@@ -18,4 +18,4 @@ class SuccessPage extends Component {
   }
 }
 
-export default SuccessPage;
+export default ProtectedPage;

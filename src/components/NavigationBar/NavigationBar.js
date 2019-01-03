@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
+import { getLoggedInUser, isUserLoggedIn } from '../../utils/userUtils'
+
+import './NavigationBar.css';
 
 class App extends Component {
+  logOut() {
+    const cognitoUser = getLoggedInUser();
+    cognitoUser.signOut();
+    window.location.reload();
+  }
+
+  showLoginLogout() {
+    const cognitoUser = getLoggedInUser();
+
+      if(isUserLoggedIn(cognitoUser)) {
+        return <button className="NavigationBar-item" onClick={this.logOut}>Log out</button>
+      }
+
+      return <a className="NavigationBar-item" href="/login">Login</a>
+  }
+
   render() {
     return (
-      <div>
-        <a href="/success">Success</a>
-        <a href="/protectedPage">ProtectedPage</a>
-        <a href="/login">Login</a>
+      <div className="NavigationBar">
+        <a className="NavigationBar-item" href="/welcome">Welcome</a>
+        <a className="NavigationBar-item" href="/protectedPage">ProtectedPage</a>
+        { this.showLoginLogout() }
       </div>
     );
   }

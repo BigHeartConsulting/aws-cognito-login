@@ -4,24 +4,24 @@ import './App.css';
 
 import NavigationBar from '../../components/NavigationBar/NavigationBar'
 import LoginPage from '../../pages/LoginPage';
-import SuccessPage from '../../pages/SuccessPage';
+import WelcomePage from '../../pages/WelcomePage';
 import ProtectedPage from '../../pages/ProtectedPage';
 import ProtectedRoute from '../../utils/ProtectedRoute';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="App">
+        <NavigationBar/>
+
         <Router>
           <Switch>
-            <Route exact path="/" component={LoginPage}/>
+            <Route exact path="/" component={WelcomePage}/>
             <Route exact path="/login" component={LoginPage}/>
-            <ProtectedRoute path="/success" component={SuccessPage}/>
+            <Route path="/welcome" component={WelcomePage}/>
             <ProtectedRoute path="/protectedPage" component={ProtectedPage}/>
           </Switch>
         </Router>
-        
-        <NavigationBar/>
       </div>
     );
   }

@@ -87,8 +87,8 @@ class LoginPage extends Component {
   }
 
   handleLoginSuccess() {
-    const returnLocation = this.props.location.state ? this.props.location.state.referrer : '/success'; 
-    this.props.history.push(returnLocation || "/success");
+    const returnLocation = this.props.location.state ? this.props.location.state.referrer : '/protectedPage'; 
+    this.props.history.push(returnLocation || "/protectedPage");
   }
 
   handleLoginFailure(err) {
@@ -189,7 +189,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
           <form onSubmit={this.onSubmit.bind(this)}>
             <h2 className="text-center mb-4">Sign In</h2>
