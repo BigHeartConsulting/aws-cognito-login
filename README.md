@@ -8,12 +8,14 @@ Click Add app client. Make sure that `Generate client secret` is unchecked, then
 
 Click `Create pool`
 
+Click `Users and groups` under `General Settings` and create a user
+
 In the project directory, make a file called .env with the contents:
 
 ### `REACT_APP_CLIENT_ID="your Cognito app client id"`
 ### `REACT_APP_POOL_ID="your Cognito user pool id"`
 
-The app client id can be found in "App clients" and the user pool id can be found in "General seetings" in the AWS Cognito console.
+The app client id can be found in `App clients` under `General settings` and the user pool id can be found in `General settings` in the AWS Cognito console.
 
 In the project directory, run:
 
