@@ -10,14 +10,18 @@ class App extends Component {
     window.location.reload();
   }
 
+  componentDidMount() {
+    console.log("mounted");
+  }
+
   showLoginLogout() {
     const cognitoUser = getLoggedInUser();
 
-      if(isUserLoggedIn(cognitoUser)) {
+    if(isUserLoggedIn(cognitoUser)) {
         return <button className="NavigationBar-item" onClick={this.logOut}>Log out</button>
-      }
+    }
 
-      return <a className="NavigationBar-item" href="/login">Login</a>
+    return <a className="NavigationBar-item" href="/login">Login</a>
   }
 
   render() {

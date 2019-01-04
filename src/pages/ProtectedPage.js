@@ -10,10 +10,9 @@ class ProtectedPage extends Component {
 
   render() {
     return (
-      <div>
+      <h2>
         You can only get to this page if you are logged in
-        <button onClick={ this.logOut }>Log Out</button>
-      </div>
+      </h2>
     );
   }
 }

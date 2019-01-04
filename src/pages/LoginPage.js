@@ -88,7 +88,8 @@ class LoginPage extends Component {
 
   handleLoginSuccess() {
     const returnLocation = this.props.location.state ? this.props.location.state.referrer : '/protectedPage'; 
-    this.props.history.push(returnLocation || "/protectedPage");
+    
+    window.location = returnLocation;
   }
 
   handleLoginFailure(err) {
