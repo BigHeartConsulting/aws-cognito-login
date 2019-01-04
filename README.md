@@ -17,7 +17,7 @@ The app client id can be found in "App clients" and the user pool id can be foun
 
 In the project directory, run:
 
-### `npm` and `npm start`
+### `npm install` and `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
