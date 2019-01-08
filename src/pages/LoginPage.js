@@ -37,7 +37,7 @@ class LoginPage extends Component {
 
     const cognitoUser = this.getCognitoUser();
 
-    if(this.state.isResettingPassword) {      
+    if(this.state.isResettingPassword) {
       cognitoUser.confirmPassword(this.state.verificationCode, this.state.password, {
         onSuccess: function () {
           this.logIn(cognitoUser);
@@ -76,8 +76,8 @@ class LoginPage extends Component {
 
         this.setState({newPasswordRequired: true});
 
-        if (this.state.newPassword && this.state.confirmNewPassword) {
-          cognitoUser.completeNewPasswordChallenge(this.state.newPassword, userAttributes, {
+        if (this.state.password && this.state.confirmNewPassword) {
+          cognitoUser.completeNewPasswordChallenge(this.state.password, userAttributes, {
             onSuccess: this.handleLoginSuccess.bind(this),
             onFailure: this.handleLoginFailure.bind(this),
           });
@@ -128,21 +128,35 @@ class LoginPage extends Component {
   }
 
   hasRequiredFields() {
-    if (this.state.newPasswordRequired) {
-      return this.state.newPassword && 
+    if (this.state.passwordRequired) {
+      return this.state.password && 
         this.state.confirmNewPassword && 
-        this.state.newPassword === this.state.confirmNewPassword &&
+        this.state.password === this.state.confirmNewPassword &&
         this.state.username && this.state.password;
+    } else if(this.state.isResettingPassword) {
+      return this.state.password && 
+        this.state.confirmNewPassword && 
+        this.state.password === this.state.confirmNewPassword && 
+        this.state.verificationCode;
     }
     return this.state.username && this.state.password;
   }
 
+  showPasswordField() {
+    if(!this.state.newPasswordRequired && !this.state.isResettingPassword) {
+      return <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input name="password" onChange={ this.handleChange.bind(this) } type="password" className="form-control" placeholder="Your password"/>
+      </div>
+    }
+  }
+
   showNewPasswordFields() {
-    if (this.state.newPasswordRequired) {
+    if (this.state.newPasswordRequired || this.state.isResettingPassword) {
       return <div>
         <div className="form-group">
-          <label htmlFor="newPassword">New Password</label>
-          <input name="newPassword" onChange={ this.handleChange.bind(this) } type="password" className="form-control" placeholder="Your new password"/>
+          <label htmlFor="password">New Password</label>
+          <input name="password" onChange={ this.handleChange.bind(this) } type="password" className="form-control" placeholder="Your new password"/>
         </div>
 
         <div className="form-group">
@@ -156,7 +170,7 @@ class LoginPage extends Component {
   }
 
   showPasswordsMustMatch() {
-    if (this.state.newPassword !== this.state.confirmNewPassword) {
+    if (this.state.password !== this.state.confirmNewPassword) {
       return <div>
         Passwords must match
       </div>
@@ -176,6 +190,7 @@ class LoginPage extends Component {
   showVerificationField() {
     if(this.state.isResettingPassword) {
       return <div className="form-group">
+        <div>Please check the email associated with that username for your verification code</div>
         <label htmlFor="verificationCode">Verification Code</label>
         <input name="verificationCode" onChange={ this.handleChange.bind(this) } type="password" className="form-control" placeholder="Your verification code"/>
       </div>
@@ -201,12 +216,10 @@ class LoginPage extends Component {
 
             { this.showVerificationField() }
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input name="password" onChange={ this.handleChange.bind(this) } type="password" className="form-control" placeholder="Your password"/>
-            </div>
+            { this.showPasswordField() }
 
             { this.showNewPasswordFields() }
+
             { this.showPasswordsMustMatch() }
             { this.showError() }
 

@@ -10,10 +10,6 @@ class App extends Component {
     window.location.reload();
   }
 
-  componentDidMount() {
-    console.log("mounted");
-  }
-
   showLoginLogout() {
     const cognitoUser = getLoggedInUser();
 
